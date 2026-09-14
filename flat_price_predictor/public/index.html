@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Sarada Residential</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    >
+
+    <link
+        rel="stylesheet"
+        href="./static/styles.css"
+    >
+
+</head>
+
+
+<body>
+
+    <!-- ==============================
+         ANIMATED BACKGROUND
+    =============================== -->
+
+    <div class="bg-scene">
+
+        <div class="glow glow-1"></div>
+
+        <div class="glow glow-2"></div>
+
+        <div class="glow glow-3"></div>
+
+        <div class="stars" id="stars"></div>
+
+        <div class="moon"></div>
+
+        <div class="skyline" id="skyline"></div>
+
+    </div>
+
+
+    <!-- ==============================
+         NAVBAR
+    =============================== -->
+
+    <nav class="navbar">
+
+        <div class="brand">
+
+            <span class="brand-icon">◆</span>
+
+            <span class="brand-name">
+                Sarada <em>Residential</em>
+            </span>
+
+        </div>
+
+        <div class="nav-tag">
+            AI-powered flat price estimation
+        </div>
+
+    </nav>
+
+
+    <!-- ==============================
+         HERO
+    =============================== -->
+
+    <header class="hero">
+
+        <span class="hero-badge">
+            Now Booking · Luxury 2, 3 & 4 BHK Flats
+        </span>
+
+        <h1 class="hero-title">
+            Find your flat's
+            <span class="gradient-text">true worth</span>
+            in seconds.
+        </h1>
+
+        <p class="hero-sub">
+            From garden-level 2 BHKs to penthouses on the 40th floor —
+            Sarada's pricing engine reads every detail of your flat and
+            returns a fair estimate instantly.
+        </p>
+
+    </header>
+
+
+    <!-- ==============================
+         PREDICTOR CARD
+    =============================== -->
+
+    <main>
+
+        <form
+            action="/predict"
+            method="post"
+            id="flat-details"
+            class="glass-card"
+        >
+
+            <div class="card-head">
+
+                <h2>Select your flat details</h2>
+
+                <span class="step-hint">
+                    Step <span id="current-step">1</span> of 5
+                </span>
+
+            </div>
+
+
+            <div class="progress-track">
+                <div class="progress-fill" id="progress"></div>
+            </div>
+
+
+            <!-- Area -->
+
+            <div class="field">
+
+                <div class="field-head">
+
+                    <label for="area">
+                        <span class="field-ico">📐</span>
+                        Area
+                    </label>
+
+                    <span class="chip" id="area-chip">
+                        1000 sq.ft.
+                    </span>
+
+                </div>
+
+                <input
+                    type="range"
+                    id="area"
+                    name="area"
+                    min="200"
+                    max="5000"
+                    step="50"
+                    value="1000"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Facing -->
+
+            <div class="field">
+
+                <div class="field-head">
+
+                    <label>
+                        <span class="field-ico">🧭</span>
+                        Facing
+                    </label>
+
+                </div>
+
+                <div class="facing-group" id="facing-group">
+
+                    <button
+                        type="button"
+                        class="facing-btn"
+                        data-value="East"
+                    >
+                        <span class="facing-arr">→</span> East
+                    </button>
+
+                    <button
+                        type="button"
+                        class="facing-btn"
+                        data-value="West"
+                    >
+                        <span class="facing-arr">←</span> West
+                    </button>
+
+                    <button
+                        type="button"
+                        class="facing-btn"
+                        data-value="North"
+                    >
+                        <span class="facing-arr">↑</span> North
+                    </button>
+
+                    <button
+                        type="button"
+                        class="facing-btn"
+                        data-value="South"
+                    >
+                        <span class="facing-arr">↓</span> South
+                    </button>
+
+                </div>
+
+                <input
+                    type="hidden"
+                    id="facing"
+                    name="facing"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Floor -->
+
+            <div class="field">
+
+                <div class="field-head">
+
+                    <label for="floor">
+                        <span class="field-ico">🏢</span>
+                        Floor
+                    </label>
+
+                    <span class="chip" id="floor-chip">
+                        3
+                    </span>
+
+                </div>
+
+                <input
+                    type="range"
+                    id="floor"
+                    name="floor"
+                    min="1"
+                    max="40"
+                    step="1"
+                    value="3"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Bedrooms -->
+
+            <div class="field">
+
+                <div class="field-head">
+
+                    <label>
+                        <span class="field-ico">🛏️</span>
+                        Bedrooms
+                    </label>
+
+                </div>
+
+                <div class="stepper" id="bedrooms-stepper">
+
+                    <button
+                        type="button"
+                        class="step-btn"
+                        id="bed-minus"
+                        aria-label="Decrease bedrooms"
+                    >
+                        −
+                    </button>
+
+                    <span class="stepper-value" id="bedrooms-value">
+                        2
+                    </span>
+
+                    <button
+                        type="button"
+                        class="step-btn"
+                        id="bed-plus"
+                        aria-label="Increase bedrooms"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+                <input
+                    type="hidden"
+                    id="bedrooms"
+                    name="bedrooms"
+                    value="2"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Car Parking -->
+
+            <div class="field">
+
+                <div class="field-head">
+
+                    <label for="car_parking">
+                        <span class="field-ico">🚗</span>
+                        Car Parking
+                    </label>
+
+                    <span class="chip" id="parking-chip">
+                        200 sq.ft.
+                    </span>
+
+                </div>
+
+                <input
+                    type="range"
+                    id="car_parking"
+                    name="car_parking"
+                    min="0"
+                    max="800"
+                    step="10"
+                    value="200"
+                    required
+                >
+
+            </div>
+
+
+            <!-- Predict Button -->
+
+            <button
+                type="submit"
+                id="predict-price"
+            >
+
+                <span class="btn-text">Predict Price</span>
+
+                <span class="btn-arrow">→</span>
+
+                <span class="btn-loader"></span>
+
+            </button>
+
+
+            <!-- Prediction Output -->
+
+            <div class="result hidden" id="result">
+
+                <div class="result-label">
+                    Predicted Price
+                </div>
+
+                <div class="result-value" id="result-value">
+                    —
+                </div>
+
+                <div class="result-note" id="result-note">
+                    Based on your selected flat details
+                </div>
+
+            </div>
+
+        </form>
+
+    </main>
+
+
+    <!-- ==============================
+         FOOTER
+    =============================== -->
+
+    <footer class="footer">
+
+        <span>
+            © 2026 Sarada Residential — find the flat that feels like home.
+        </span>
+
+    </footer>
+
+
+    <!-- ==============================
+         JAVASCRIPT
+    =============================== -->
+
+    <script>
+
+        /* ---------- Animated starfield ---------- */
+
+        /* ---------- City skyline (buildings + lit flats) ---------- */
+
+        const skyline = document.getElementById("skyline");
+
+        for (let i = 0; i < 16; i++) {
+
+            const building = document.createElement("div");
+
+            building.className = "building";
+
+            const h = 120 + Math.random() * 260;
+
+            building.style.height = h + "px";
+
+            building.style.width = (40 + Math.random() * 46) + "px";
+
+            building.style.animationDelay = (-Math.random() * 14) + "s";
+
+            building.style.setProperty("--delay",
+                (-Math.random() * 3) + "s");
+
+            const floors = Math.floor(h / 34);
+
+            const cols = 2;
+
+            for (let f = 0; f < floors; f++) {
+
+                for (let c = 0; c < cols; c++) {
+
+                    if (Math.random() < 0.55) continue;
+
+                    const win = document.createElement("span");
+
+                    win.className = "win";
+
+                    win.style.setProperty("--col", c + 1);
+
+                    win.style.setProperty("--row", f + 1);
+
+                    if (Math.random() < 0.5) {
+
+                        win.style.background =
+                            "#fbbf24";
+
+                        win.style.color =
+                            "#fbbf24";
+
+                    } else {
+
+                        win.style.background =
+                            "#7dd3fc";
+
+                        win.style.color =
+                            "#7dd3fc";
+
+                    }
+
+                    building.appendChild(win);
+
+                }
+
+            }
+
+            skyline.appendChild(building);
+
+        }
+
+
+        /* ---------- Twinkling stars ---------- */
+
+        const stars = document.getElementById("stars");
+
+        for (let i = 0; i < 70; i++) {
+
+            const s = document.createElement("span");
+
+            s.style.left = Math.random() * 100 + "%";
+
+            s.style.top = Math.random() * 100 + "%";
+
+            const size = 1 + Math.random() * 2;
+
+            s.style.width = size + "px";
+
+            s.style.height = size + "px";
+
+            s.style.animationDuration =
+                (2 + Math.random() * 4) + "s";
+
+            s.style.animationDelay =
+                (Math.random() * 4) + "s";
+
+            stars.appendChild(s);
+
+        }
+
+
+        /* ---------- Shared element refs & state ---------- */
+
+        const facingInput =
+            document.getElementById("facing");
+
+        const bedValue =
+            document.getElementById("bedrooms-value");
+
+        const bedInput =
+            document.getElementById("bedrooms");
+
+        let bedrooms = 2;
+
+        const progress =
+            document.getElementById("progress");
+
+        const stepLabel =
+            document.getElementById("current-step");
+
+
+        function updateProgress() {
+
+            const filled =
+                (document.getElementById("area").value > 0) +
+                (facingInput.value !== "") +
+                (document.getElementById("floor").value > 0) +
+                (bedrooms > 0) +
+                (document.getElementById("car_parking").value > 0);
+
+            const step =
+                facingInput.value === "" ? 1 : Math.min(5, filled + 1);
+
+            progress.style.width =
+                Math.max(20, filled / 5 * 100) + "%";
+
+            stepLabel.textContent = step;
+
+        }
+
+
+        /* ---------- Live chips for sliders ---------- */
+
+        function bindChip(sliderId, chipId, suffix) {
+
+            const slider = document.getElementById(sliderId);
+
+            const chip = document.getElementById(chipId);
+
+            const update = () => {
+
+                chip.textContent =
+                    Number(slider.value)
+                        .toLocaleString("en-IN") + " " + suffix;
+
+                const pct =
+                    (slider.value - slider.min) /
+                    (slider.max - slider.min) * 100;
+
+                slider.style.setProperty(
+                    "--fill",
+                    pct + "%"
+                );
+
+                updateProgress();
+
+            };
+
+            slider.addEventListener("input", update);
+
+            update();
+
+        }
+
+        bindChip("area", "area-chip", "sq.ft.");
+
+        bindChip("floor", "floor-chip", "");
+
+        bindChip("car_parking", "parking-chip", "sq.ft.");
+
+
+        /* ---------- Facing buttons ---------- */
+
+        document
+            .querySelectorAll(".facing-btn")
+            .forEach(btn => {
+
+                btn.addEventListener("click", () => {
+
+                    document
+                        .querySelectorAll(".facing-btn")
+                        .forEach(b =>
+                            b.classList.remove("active"));
+
+                    btn.classList.add("active");
+
+                    facingInput.value =
+                        btn.dataset.value;
+
+                    facingInput
+                        .dispatchEvent(new Event("input"));
+
+                });
+
+            });
+
+
+        /* ---------- Bedrooms stepper ---------- */
+
+        function renderBedrooms() {
+
+            bedValue.textContent = bedrooms;
+
+            bedInput.value = bedrooms;
+
+            updateProgress();
+
+        }
+
+        document.getElementById("bed-minus")
+            .addEventListener("click", () => {
+
+                if (bedrooms > 1) bedrooms--;
+
+                renderBedrooms();
+
+            });
+
+        document.getElementById("bed-plus")
+            .addEventListener("click", () => {
+
+                if (bedrooms < 10) bedrooms++;
+
+                renderBedrooms();
+
+            });
+
+
+        /* ---------- Form submit → /predict ---------- */
+
+        const form =
+            document.getElementById("flat-details");
+
+        const resultBox =
+            document.getElementById("result");
+
+        const resultValue =
+            document.getElementById("result-value");
+
+        const resultNote =
+            document.getElementById("result-note");
+
+        const predictBtn =
+            document.getElementById("predict-price");
+
+        form.addEventListener(
+            "submit",
+            async function(event) {
+
+                event.preventDefault();
+
+                if (facingInput.value === "") {
+
+                    resultBox.classList.remove("hidden");
+
+                    resultBox.classList.add("shake");
+
+                    resultValue.textContent = "Pick a facing 👆";
+
+                    resultNote.textContent =
+                        "Select the direction your flat faces to continue";
+
+                    setTimeout(
+                        () => resultBox
+                            .classList.remove("shake"),
+                        500
+                    );
+
+                    return;
+
+                }
+
+                resultBox.classList.remove("hidden");
+
+                resultValue.textContent = "…";
+
+                resultNote.textContent = "Crunching numbers";
+
+                resultBox.classList.add("loading");
+
+                predictBtn.classList.add("busy");
+
+                const formData =
+                    new FormData(form);
+
+                try {
+
+                    const response =
+                        await fetch("/predict", {
+
+                            method: "POST",
+
+                            body: formData
+
+                        });
+
+                    const data =
+                        await response.json();
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.error ||
+                            "Prediction failed"
+                        );
+
+                    }
+
+                    if (
+                        data.prediction !== undefined
+                    ) {
+
+                        const price =
+                            Number(data.prediction);
+
+                        animatePrice(price);
+
+                        resultNote.innerHTML =
+                            "For " +
+                            document.getElementById("area").value +
+                            " sq.ft. · " +
+                            facingInput.value + "-facing · Floor " +
+                            document.getElementById("floor").value +
+                            ' · <a href="#" id="reset-link">Reset</a>';
+
+                        document
+                            .getElementById("reset-link")
+                            .addEventListener(
+                                "click",
+                                function(e) {
+
+                                    e.preventDefault();
+
+                                    resultBox.classList.add("hidden");
+
+                                }
+                            );
+
+                    }
+
+                    else {
+
+                        showError("Prediction failed");
+
+                    }
+
+                }
+
+                catch (error) {
+
+                    console.error("Error:", error);
+
+                    showError(error.message);
+
+                }
+
+                finally {
+
+                    resultBox.classList.remove("loading");
+
+                    predictBtn.classList.remove("busy");
+
+                }
+
+            }
+
+        );
+
+
+        /* ---------- Animated counting price ---------- */
+
+        function animatePrice(target) {
+
+            const duration = 900;
+
+            const start = performance.now();
+
+            function frame(now) {
+
+                const t = Math.min(
+                    1,
+                    (now - start) / duration
+                );
+
+                const eased =
+                    1 - Math.pow(1 - t, 3);
+
+                resultValue.textContent =
+                    "₹ " +
+                    (target * eased)
+                        .toLocaleString("en-IN", {
+
+                            maximumFractionDigits: 2,
+
+                            minimumFractionDigits: 2
+
+                        }) +
+                    " lakhs";
+
+                if (t < 1) requestAnimationFrame(frame);
+
+            }
+
+            requestAnimationFrame(frame);
+
+        }
+
+
+        function showError(msg) {
+
+            resultValue.textContent = "⚠ " + msg;
+
+            resultNote.textContent =
+                "Something went wrong. Try again.";
+
+            resultBox.classList.add("shake");
+
+            setTimeout(
+                () => resultBox
+                    .classList.remove("shake"),
+                500
+            );
+
+        }
+
+    </script>
+
+</body>
+
+</html>
