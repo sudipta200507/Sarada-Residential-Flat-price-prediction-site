@@ -6,7 +6,7 @@ A production-style web application for estimating residential flat prices using 
 
 This project turns a regression model into a usable web application:
 
-`text
+```text
 User Input
    ↓
 Frontend
@@ -18,7 +18,7 @@ Input Validation
 ML Model
    ↓
 Predicted Price
-`
+```
 
 The project demonstrates the transition from ML experimentation to deployable software.
 
@@ -46,7 +46,7 @@ The project demonstrates the transition from ML experimentation to deployable so
 
 ## Project Structure
 
-`text
+```text
 flat_price_predictor/
 ├── public/
 │   ├── index.html
@@ -58,16 +58,16 @@ flat_price_predictor/
 ├── train_model.py
 ├── requirements.txt
 └── .vercelignore
-`
+```
 
 ## Run Locally
 
-`bash
+```bash
 python -m venv .venv
 .venv\Scripts\activate
 pip install -r requirements.txt
 python app.py
-`
+```
 
 Open `http://127.0.0.1:5000`.
 
@@ -81,20 +81,20 @@ Open `http://127.0.0.1:5000`.
 
 ## Retrain the Model
 
-`bash
+```bash
 python train_model.py --data data/dataset.csv
-`
+```
 
 Expected dataset fields include:
 
-`text
+```text
 Area_Sqft
 Floor
 Car_Parking_Sqft
 Bedrooms
 Edit_face
 Price
-`
+```
 
 ## Deployment
 
